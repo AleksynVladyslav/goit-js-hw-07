@@ -3,6 +3,9 @@ import { galleryItems } from './gallery-items.js';
 
 console.log(galleryItems);
 
+//добавляем ссылку на элемент разметки
+const galleryRef = document.querySelector('.gallery');
+
 //создаем функцию возвращающую строку разметки
 function createListsItemsMurkup(items) {
   return items
@@ -18,11 +21,6 @@ function createListsItemsMurkup(items) {
 
 //кладем разметку в пременную listsItemsMurkup
 const listsItemsMurkup = createListsItemsMurkup(galleryItems);
-// console.log(listsItemsMurkup);
-
-//добавляем ссылку на элемент разметки
-const galleryRef = document.querySelector('.gallery');
-// console.log(galleryRef);
 
 //Добавляем элементы в DOM
 function addListsItemsMurkup() {
@@ -32,20 +30,9 @@ function addListsItemsMurkup() {
 //вызов функции
 addListsItemsMurkup();
 
-// добавляем слушателя событий
-function addGalleryItemsListener() {
-  galleryRef.addEventListener('click', event => {
-    event.preventDefault();
-    const lightbox = new SimpleLightbox('.gallery .gallery__link', {
-      captionPosition: 'bottom',
-      captionsData: 'alt',
-      captionDelay: 250,
-    });
-
-    lightbox.on('closed.simplelightbox', () => lightbox.refresh());
-
-    return;
-  });
-}
-
-addGalleryItemsListener();
+// использование бибилиотеки SimpleLightbox
+new SimpleLightbox('.gallery .gallery__link', {
+  captionPosition: 'bottom',
+  captionsData: 'alt',
+  captionDelay: 250,
+});
