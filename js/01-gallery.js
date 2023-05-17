@@ -4,6 +4,10 @@ import { galleryItems } from './gallery-items.js';
 
 // console.log(galleryItems);
 
+const galleryRef = document.querySelector('.gallery');
+
+galleryRef.addEventListener('click', onGalleryItemClick);
+
 //функция возвращающая строку разметки
 function createListItemsMurkup(items) {
   return items
@@ -13,11 +17,9 @@ function createListItemsMurkup(items) {
     )
     .join('');
 }
+
 //В переменную listItemsMurkup добавляем разметку
 const listItemsMurkup = createListItemsMurkup(galleryItems);
-
-//Ссылки на список в разметке
-const galleryRef = document.querySelector('.gallery');
 
 //Функция добавляющая эл-ты в DOM
 function addListItemsMurkup() {
@@ -26,18 +28,11 @@ function addListItemsMurkup() {
 //Вызываем addListItemsMurkup
 addListItemsMurkup();
 
-//добавляем слушателя
-function addGalleryItemsListener() {
-  galleryRef.addEventListener('click', event => {
-    if (event.target.nodeName !== 'IMG') {
-      return;
-    }
-    onGalleryItemClick(event);
-  });
-}
-
 //CallBack функция
 function onGalleryItemClick(event) {
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
   event.preventDefault();
   const imageSrc = event.target.dataset.source;
   const instance = basicLightbox.create(`
@@ -45,6 +40,3 @@ function onGalleryItemClick(event) {
       `);
   instance.show();
 }
-
-//Вызов функции addGalleryItemsListener
-addGalleryItemsListener();
